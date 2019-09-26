@@ -63,21 +63,19 @@ allDataQ3$activity.ID <- activityLabels[allDataQ3$activity.ID, 2]
 colnames(allDataQ3)[colnames(allDataQ3) == "activity.ID"] <- "activity.Name"
 
 
-
 #Question 4. Appropriately labels the data set with descriptive variable names.
 
 allDataQ4 <- allDataQ3
 
-
-names(allDataQ4) <- gsub("^t","Time", names(allDataQ4))
-names(allDataQ4) <- gsub("Freq","Frequency", names(allDataQ4))
-names(allDataQ4) <- gsub("^f","Frequency", names(allDataQ4))
-names(allDataQ4) <- gsub("Acc","Accelerometer", names(allDataQ4))
-names(allDataQ4) <- gsub("Gyro","Gyroscope", names(allDataQ4))
-names(allDataQ4) <- gsub("Mag","Magnitude", names(allDataQ4))
-names(allDataQ4) <- gsub("BodyBody","Body", names(allDataQ4))
-names(allDataQ4) <- gsub("mean","Mean", names(allDataQ4))
-names(allDataQ4) <- gsub("std","STD", names(allDataQ4))
+colnames(allDataQ4) <- gsub("^t","Time", colnames(allDataQ4)) 
+colnames(allDataQ4) <- gsub("Freq","Frequency", colnames(allDataQ4))
+colnames(allDataQ4) <- gsub("^f","Frequency", colnames(allDataQ4))
+colnames(allDataQ4) <- gsub("Acc","Accelerometer", colnames(allDataQ4))
+colnames(allDataQ4) <- gsub("Gyro","Gyroscope", colnames(allDataQ4))
+colnames(allDataQ4) <- gsub("Mag","Magnitude", colnames(allDataQ4))
+colnames(allDataQ4) <- gsub("BodyBody","Body", colnames(allDataQ4))
+colnames(allDataQ4) <- gsub("mean","Mean", colnames(allDataQ4))
+colnames(allDataQ4) <- gsub("std","Standard_Deviation", colnames(allDataQ4))
 
 #Question 5. From the data set in step 4, creates a second, independent tidy 
 # data set with the average of each variable for each activity and each subject.
@@ -86,8 +84,9 @@ names(allDataQ4) <- gsub("std","STD", names(allDataQ4))
 allDataQ5 <- allDataQ4
 
 
-finalDataQ5 <- group_by(allDataQ5, subject.Number,  activity.Name)  %>%
-                summarize_all(funs(mean))
+finalDataQ5 <- group_by(allDataQ5, subject.Number, activity.Name) %>%
+    summarize_all(mean)
+
 
 write.table(finalDataQ5, "finalDataQ5.txt", row.name=FALSE)
 
